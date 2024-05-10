@@ -1,0 +1,76 @@
+So please find the attached files, and please let me know if I need to submit any additional documents.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+What is makeStyles
+makeStyles is a function that allows you to use JavaScript to styles your components.
+makeStyles uses JSS at its core, this essentially translates JavaScript to CSS.
+
+for nested use " & " use and opertor
+
+
+import { makeStyles } from '@mui/styles';
+
+const useStyle =makeStyles({
+root:{
+
+},
+container{
+"& p"{
+
+"span"{
+
+}
+}
+}
+
+})
+
+//========================== useContext ======================
+import { createContext } from 'react';
+
+const contex = createContex("DefaultValue")
+
+import contex from "./contex";
+
+const theme ="contex value to passed to componet "
+
+<contex.provider>
+
+    <Component value={theme} />
+</contex.provider>
+
+
+import contex from "./"
+
+<contex.consumer>
+    theme=>{
+    return <>{theme}</>
+    }
+</contex.consumer>
+
+<!-- by hook -->
+
+import {useContex} fromm "./"
+
+const theme = useContext(context)

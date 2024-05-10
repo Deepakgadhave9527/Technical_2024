@@ -1,0 +1,997 @@
+-If a child component need the state of parent component then that state can be passed
+using props.
+
+-If parent component needs state of child component then it can be passed to parent
+component using the concept called 'lifting state up'.
+
+---------------------------------------------------------------------------------
+
+
+Q23. What is lazy function in React?
+
+Eager loading vs lazy loading
+
+#1 Eager loading:-
+
+-In case of eager loading, whole application gets initially(on first request )
+-downloaded whether it is required or not.
+-This will take more time to load the application initially
+
+#2 Lazy loading:-
+
+-In lazy loading the initial loading time of the application is reduced by spliting the code
+
+-for spliting the code we can use using dynamic imports by React.lazy() method/function
+-The lazy loading does not reduce overall loading time.
+-In lazy loading we can create single bundle instead of creating multiple bundle
+-Each bundle can be separately downloaded when required.
+
+
+#1 Static imports:-
+import m from './module'
+
+
+#2 Dynamic import :-
+React.lazy();
+const m = React.lazy(()=>import('./module'));
+
+
+
+
+---------------------------------------------------------------------------------
+
+Q. What are the different lifecycle methods in React?
+
+-Each component in React has a lifecycle which you can monitor and manipulate during its three main phases.
+-The three phases are: Mounting, Updating, and Unmounting.
+
+-Each component in React has a lifecycle which has go to three main phase Mounting, Updating, and Unmounting.
+
+# A ] Mounting:
+Mounting means putting elements into the DOM.
+React has four built-in methods that gets called in mounting phase, in this order, when mounting a component:
+
+1) constructor()
+2) getDerivedStateFromProps()
+3) render()
+4) componentDidMount()
+
+#1) constructor()
+-We can set the initial state of the component inside this method.
+-The constructor method is used to set the initial state and bind methods to the component.
+
+2) get_Derived_State_From_Props()
+This is called before rendering the elements in the DOM.
+
+3) render()
+The render() method is required, and
+its the method that actually outputs the HTML to the DOM.
+
+
+4) componentDidMount()
+this method gets executed after mounting a component.
+this method gets executed only once.
+this method is used perform one time initialization operations like
+fetching data from server, initializing a timer, etc.
+
+
+```````````````````````````````````````````````````````````````````````````````````````````
+# B] Updating:
+-Updating is next phase in the React lifecycle
+<!-- is when a component is updated. -->
+-In updating phase, a mounted componented is modified.
+-Updates in react are caused by changes in state or props.
+-Update leads to re-rendering of the component.
+
+React has five built-in methods that gets called, in this order, when a component is updated:
+
+1)getDerivedStateFromProps()
+2)shouldComponentUpdate()
+3)render()
+4)getSnapshotBeforeUpdate()
+5)componentDidUpdate()
+
+
+
+2)shouldComponentUpdate()
+-this method controls the rerenderings of the component.
+-this method returns boolean value.
+-this method is return true when component rerender
+-if return false then component will not rerender
+
+<!-- If this returns true then component will rerender if this returns false then component
+    will not rerender. -->
+
+4)getSnapshotBeforeUpdate(prevProps, prevState)
+This method gets executed just after the render() method and before updating
+the DOM.
+This method is used hold some previous values like previous state and previous
+props.
+The value returned by this method will be availble as third parameter in
+componentDidUpdate() method
+
+5) componentDidUpdate(prevProps, prevState)
+This method will get executed after updating the dom.
+If you want to perform any operation after updating the application then write
+that code here.
+
+````````````````````````````````````````````````````````````````````````````````````
+# C ] Unmounting:
+
+componentWillUnmount. This method will get executed when a component is being removed from the DOM:
+componentWillUnmount()
+<!-- 
+    1)componentWillUnmount()
+  
+    This method will get executed only once before removing the component from DOM.
+    This method is used to perform resource releasing/cleaning operations like
+    clear timer, close connections, etc. -->
+
+
+
+
+===========================================================================
+
+Q10. What are controlled and uncontrolled components in React?
+
+
+-In a controlled component, form data is handled by a React component.
+-uncontrolled components, where form data is handled by the DOM itself.
+
+
+## Controlled Component:
+
+- In Controlled Component current values accepts through props and
+if any changes then notify through call back like onchange
+-It does not maintain its internal state.
+-Data is controlled by the parent component.
+-It allows validation control.
+-It has better control over the form elements and data.
+
+## uncontrolled component:
+
+-It accepts its current value as a ref.
+-It maintains internal states.
+-data is controlled by the DOM itself.
+-It does not allow validation control.
+-It has limited control over the form elements and data.
+
+
+
+
+
+<!-- 
+    - A parent component “controls” it by handling the callback and managing its own state and passing the new values as
+    props to the controlled component.
+    - You could also call this a “dumb component”.
+    - -->
+
+<!-- 
+-The uncontrolled component is like traditional HTML form inputs
+that you will not be able to handle the value by
+    yourself
+value is not handle to control yo by yourself
+- but the DOM will take care of handling the value of the input and save it
+-then you can get this value using React Ref -->
+
+
+
+<!-- -It uses a ref for their current values.
+
+-It accepts its current value as a prop.
+-->
+
+
+
+
+## when should I use the controlled component and when should I use the uncontrolled component?
+
+Ok basically it’s up to you and up to your use case so for example
+
+You can use the controlled component when you create
+
+- Form validation so you always need to know the value of the input when typing to check if it’s a valid
+character or not!
+- Disable the submit button unless all fields have valid data
+- If you have a specific format like the credit card input
+
+-But if you don’t need any of that and think that the uncontrolled will be simpler for you, go for it
+
+
+
+
+---------------------------------------------------------------------------------
+Q what is redux ?
+
+- Redux is a predictable state container for JavaScript applications.
+- Redux is a state management tool
+
+-There is a central store that holds the entire state of the application.
+-Each component can access the stored state without having to send down props from one component to another.
+
+-There are three building parts: actions, store, and reducers.
+
+1]Action
+-Action is static information about the event that initiates a state change.
+-Actions are payloads of information that send data from our application to our store
+
+Action is static information about the event that initiates a state change.
+When you update your state with Redux,
+you always start with an action.
+Actions are in the form of Javascript objects, containing a type and an optional payload.
+Actions are sent using the store.dispatch() method.
+Actions are created via an action creator.
+
+
+
+2] Reducers
+In Redux, a reducer is a pure function that takes an action and the previous state of the application and returns the
+new state
+
+The action describes what happened and it is the reducer's job to return the new state based on that action.
+
+3]Store
+
+- A Store is an object that holds the whole state tree of your application.
+- There is only be a single store in a Redux app,
+- Whenever a store is created in Redux, you need to specify the reducer.
+
+getState() returns the current state of the store
+
+dispatch() This dispatches an action. It is the only way to update the application state
+
+subscribe() This method subscribes a change listener to the state
+
+unsubscribe() It’s useful when you no longer want to call your listener method when the state changes
+
+<!-- Whenever the store is updated, it will update the React components subscribed to it -->
+
+npm i @reduxjs/toolkit
+npm i react-redux
+
+//slice
+
+import { createSlice } from "@reduxjs/toolkit";
+
+const createSliceName =createSlice({
+name:"",
+initaiState:[],
+reducers:{
+nameOfEvent :(state,action){
+return {...state}
+}
+}
+})
+
+
+export default createSlice.reducer
+export const selector =(state)=>state
+export const {nameOfEveent} =createSliceName.actions
+
+//store
+
+import { configureStore } from "@reduxjs/toolkit";
+
+const store =configureStore({
+reducer:{
+counter:nameOfSlice
+}
+})
+
+
+//app.js
+import {Provider} from "react-redux"
+import store from "./store"
+
+<Provider store={store}>
+  <App />
+</Provider>
+
+store acccess karna or store ko actions dispatch
+when need to pass the
+
+
+
+
+---------------------------------------------------------------
+Q2. What is JSX and how JSX can help applications in React.js?
+
+-JSX stands for JavaScript XML
+-JSX is a html like syntax.
+
+-jSX allows us to write HTML elements in JavaScript and
+
+-place them in the DOM without any createElement() or appendChild() methods.
+
+- JSX converts HTML tags into react elements. by calling React.createElement(),
+-this will be done by the babel.
+
+- If you write JSX in a file then React package must be imported
+
+
+
+<!-- 
+
+- As JSX gets converted to Javascript so you cannot use Javascript keywords as JSX attributes
+- React uses JSX for templating instead of regular JavaScript.
+- JSX provides a way to write the react elements.
+
+-->
+
+
+
+
+
+---------------------------------------------------------------------------------
+
+Q4. What are the differences between a class component and functional component?
+
+Functional Components
+
+
+-A Functional components are basic JavaScript functions that accepts props as an argument and
+returns a React element.
+-You can created function component by usign arrow function or regular function keyword.
+
+- Functional components Sometimes referred to as stateless components as they simply accept data
+and display them in some form;
+
+
+-In case of function component state can be maintained by using useState() hook.
+
+-React lifecycle methods cannot be used in functional components.
+-so There is no render method used in functional components.
+
+
+-Functional Components mainly focuses on the UI of the application, not on the behavior.
+
+
+Class Components
+
+-Class-based Components uses ES6 class syntax
+-Class components extend from React.Component.
+
+-All class based components are child classes for the Reactjs Component of class
+-Class components Sometimes called Stateful components because they implement logic and state.
+
+-In case of class component local state can be maintained using 'state' property
+-React lifecycle methods can be used inside class components
+
+-Class-based components can have refs to mangining DOM nodes.
+-We pass props down to class components and access them with this.props.
+
+-In case of class component local state can be maintained using 'state' property
+-update the state using the setState() method.
+
+<!-- Class-based components can use shouldComponentUpdate() and PureComponent() performance optimisation techniques. -->
+
+
+<!-- 
+
+-functional components, we can use hooks (useState) to manage state.
+-Hooks can only be used in functional components, not in-class components.
+
+-Functional components can accept and use props.
+-Functional components should be favored if you do not need to make use of React state.
+-Functional components arrow functions but we can also be created with the regular function keyword. 
+
+-->
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------
+
+Q5. What is the difference between state and props?
+
+
+State
+
+-state is maintained data inside a component.
+
+-In case of class component local state can be maintained using 'state' property
+-update the state using the setState() method.
+
+-In case of function component state can be maintained by using useState() hook.
+
+-If a child component need the state of parent component then that state can be passed
+using props.
+
+-State changes can be asynchronous.
+-State is mutable.
+-State holds information about the components.
+-State cannot make components reusable.
+-The State is internal and controlled by the React Component itself.
+
+
+
+<!-- -It is local or owned by that specific component.
+-The component itself will
+-State cannot be accessed by child components.
+-Stateless components cannot have State.
+-States can be used for rendering dynamic changes with the component. -->
+
+
+Props
+
+-props is object used to pass data from parent component to child component
+-props are read-only in the child component that receives them.
+
+-Props are immutable.
+-Props are used to communicate between components.
+
+-Props make components reusable.
+-Props are external and controlled by whatever renders the component.
+
+
+-Props allow you to pass data from one component to other components as an argument.
+-Props can be accessed by the child component.
+
+-Stateless component can have Props.
+
+<!---
+-callback functions can also be passed, which can be 
+-executed inside the child to initiate an update.
+-Props are read-only.
+ -->
+
+
+---------------------------------------------------------------------------------
+
+Q6. How would you create Higher Order Components (HOCs) in React.js?
+
+-In React, Higher Order Component is an advanced technique for reusing component logic.
+-In higher-order component function that takes a component and returns a new component.
+
+
+-According to the official website,
+-Higher-Order Components are not part of the React API.
+-but They are pattern that emerges from React's compositional nature.
+
+
+-it is a function which accepts another function as an argument.
+-higher-order component converts a component into another component.
+
+With help of HoC You can do many tasks
+Code Reusability
+Props manipulation
+State manipulation
+
+
+
+
+
+
+---------------------------------------------------------------------------------
+
+Q7. What can you do with HOC?
+You can do many tasks with HOC, some of them are given below:
+
+Code Reusability
+Props manipulation
+State manipulation
+
+---------------------------------------------------------------------------------
+
+Q8. What is PureComponent?
+
+-components which do not re-renders when the value of state and props has been updated with the same values.
+-Pure Components restricts the re-rendering and give the higher performance of the Component
+
+- Pure Components in React are the
+- If the value of the previous state or props and the new state or props is the same,
+the component is not re-rendered.
+
+
+
+React Components re-renders in the following scenarios:
+
+“setState” is called in Component
+“props” values are updated
+this.forceUpdate() is called
+
+
+Q11. What do you understand by refs in React?
+
+
+- Refs are used to access DOM nodes or React elements created by the render method.
+- Refs are created using React.createRef() method and
+- attached to React elements via the ref attribute.
+- Refs are commonly assigned to an instance property when a component is constructed
+
+When to Use Refs
+
+Managing focus, text selection, or media playback.
+Triggering imperative animations.
+Integrating with third-party DOM libraries.
+
+When not to use refs
+
+Should not be used with functional components because they dont have instances.
+
+
+<!-- 
+- React Refs are a useful feature that act as a means to reference a DOM element or a class component from within a
+parent component.
+
+Refs also provide some flexibility for referencing elements within a child component from a parent component, in the
+form of ref forwarding.
+Not to be used on things that can be done declaritvely.
+ -->
+---------------------------------------------------------------------------------
+
+
+
+Q12 what is dom ?
+
+-DOM: DOM stands for ‘Document Object Model’.
+-It is a structured representation of the HTML elements
+that are present in a webpage or web-app.
+
+-DOM represents tree data strcuture and the entire UI of your application.
+
+<!-- -The DOM is represented as a tree data strcuture.  -->
+
+
+---------------------------------------------------------------------------------
+
+Q13 What is Virtual DOM?
+
+-Virtual DOM is an in-memory representation of real DOM.
+-It is a lightweight JavaScript object which is a copy of Real DOM.
+-ReactJS does not update the real DOM directly but it updates the Virtual DOM
+-Virtual dom is compared to Real dom, virtual dom update only that part in dom which changed.
+
+-Virtual DOM is about avoiding unnecessary update whole dom of rendering
+-It's very time consuming and from this functionality, our app works fast.
+
+-it's not rendering the whole dom it's just changed the updated part of dom in virtual dom.
+
+<!-- Virtual Dom is created one copy of Dom. -->
+<!--
+Virtual DOM is any kind of representation of a real DOM. 
+Virtual DOM is about avoiding unnecessary changes to the DOM,
+ which are expensive performance-wise,
+  because changes to the DOM usually cause re-rendering of the page. 
+  It allows to collect several changes to be applied at once, 
+  so not every single change causes a re-render, but instead re-rendering only happens once 
+  after a set of changes was applied to the DOM. -->
+
+---------------------------------------------------------------------------------
+
+
+
+Q14. What is the difference between Real DOM and Virtual DOM?
+Below are the main differences between Real DOM and Virtual DOM,
+
+Real DOM Virtual DOM
+
+Updates are slow -------------------- Updates are fast
+DOM manipulation is very expensive. -------------------- DOM manipulation is very easy
+You can update HTML directly. -------------------- You Can’t directly update HTML
+It causes too much of memory wastage -------------------- There is no memory wastage
+Creates a new DOM if element updates -------------------- It updates the JSX if element update
+
+
+---------------------------------------------------------------------------------
+
+
+Q15 is the Shadow DOM the same as the Virtual DOM?
+-No, they are different.
+
+-The Shadow DOM is a browser technology designed primarily for scoping variables and CSS in
+web components.
+
+-The virtual DOM is a concept implemented by libraries in JavaScript on top of browser APIs.
+
+---------------------------------------------------------------------------------
+
+
+
+
+Q16: What is prop drilling and how can you avoid it?
+
+
+- In Prop drilling there is a need to pass data through props from a component to hierarchy component that is
+deeply nested.
+
+
+-To pass data between such components, we pass props from a source component, and keep passing the prop to the next
+component in the hierarchy till we reach the deeply nested component.
+
+
+
+<!-- - 
+  In Prop drilling  there is a need to pass data from a  component that is higher 
+  in the hierarchy to a component that is deeply nested.
+-To pass data between such components, we pass props from a source component, 
+and keep passing the prop to the next component in the hierarchy till we reach the deeply nested component.
+
+
+
+ -Prop drilling is basically a situation when the same data is being sent at almost every level due to
+  requirements in the final level.
+
+Sometimes while developing React applications, there is a need to pass data from a component that is higher in the hierarchy to a component that is deeply nested.
+
+To pass data between such components, we pass props from a source component, and keep passing the prop to the next component in the hierarchy till we reach the deeply nested component.
+
+
+When building a React application, there is often the need for a deeply nested component to use data provided by another component that is much higher in the hierarchy. The simplest approach is to simply
+
+pass a prop from each component to the next in the hierarchy from the source component to the deeply nested component. This is called prop drilling.
+
+
+To avoid prop drilling, a common approach is to use React context. This allows a Provider component that supplies data to be defined, and allows nested components to consume context data via either a Consumer component or a useContext hook
+
+
+
+ -->---------------------------------------------------------------------------------
+
+Q17. Differentiate between stateful and stateless components?
+
+
+Functional Component or Stateless component
+
+Functional component is like pure function in JavaScript.
+Functional component is also called as a stateless component.
+The functional component only receives props from parent component and return you JSX elements.
+The functional component does n’t play with any lifecycle methods of React and doesn’t play with the component state...
+
+
+Class component or state-full component
+
+React class component is called as a state-full component.
+Stateful component plays with all life cycle methods of React.
+This component will modify state.
+
+------
+
+When would you use a stateless component
+When you just need to present the props
+When you do not need a state, or any internal variables
+When creating element does not need to be interactive
+When you want reusable code
+
+When would you use a stateful component?
+
+When building element that accepts user input or element that is interactive on page
+When dependent on state for rendering, such as, fetching data before rendering
+When dependent on any data that cannot be passed down as props
+
+
+
+
+---------------------------------------------------------------------------------
+
+
+Q_18. What is the significance of keys in React?
+-A key is a unique identifies
+-Keys help React identify which items have changed, are added, or are removed.
+-Keys should be given to the elements inside the array to give the elements a stable identity.
+
+
+
+---------------------------------------------------------------------------------
+q19. What are React components?
+
+
+
+
+
+-Components are the building blocks of any React app and a typical React app will have many of these.
+
+-A React component can be either stateful or stateless.
+-Stateful components are of the class type,
+-while stateless components are of the function type.
+
+---------------------------------------------------------------------------------
+
+
+Q21. What are fragments? Why are fragments better than container divs?
+
+<!-- Fragments allows to group a list of children without adding extra nodes to the DOM. -->
+
+<!-- React.Fragment groups multiple elements without adding an extra node in the DOM -->
+
+react .fragment add group of multiple elements without adding an extra node in Dom
+
+React fragment uses two syntaxes
+
+1. <Fragment> content </Fragment>
+
+This syntax should be used only when you are using fragment inside the map() method
+in list rendering because you need pass key prop.
+<Fragment> accept only key prop
+
+  2. <> content </>
+  Use this syntax whenever you do not have to pass key prop
+  ---------------------------------------------------------------------------------
+
+  Q22. What are error boundaries in React?
+
+  -Error boundaries in React components that catch JavaScript errors
+  -anywhere in their child component tree, and log thosee errors
+  -And display a fallback UI instead of the component tree that crashed.
+
+  -Use static getDerivedStateFromError() to render a fallback UI after an error has been thrown.
+  -Use componentDidCatch() to log error information.
+
+
+  Error boundaries do not catch errors for:
+
+  Event handlers
+  Asynchronous code (e.g. setTimeout() )
+  Server side rendering
+  Errors thrown in the error boundary itself
+  <!--
+Error boundaries catch errors during rendering, in lifecycle methods, 
+and in constructors of the whole tree below them.
+
+A class component becomes an error boundary 
+if it defines either (or both) of the lifecycle methods static
+getDerivedStateFromError() or componentDidCatch().
+ -->
+  <!-- ---------------------------------------------- -->
+
+  <!-- -The lazy loading is implemented by creating multiple bundles instead of creating single. -->
+  <!-- ic import :-
+  dynamic imports requires default exported modules
+
+  import('./module')
+  .then(m=>{
+
+  })
+  .catch(err=>{
+
+  })
+
+
+
+
+  React.lazy() makes it easy to create components that are loaded using dynamic import() but are rendered like regular
+  components.
+  This will automatically cause the bundle containing the component to be loaded when the component is
+  rendered.
+
+  React.lazy() takes a function as its argument that must return a promise by calling import() to load the component.
+  The returned Promise resolves to a module with a default export containing the React component.
+
+  Example:
+
+  Lazy loaded routes :- -->
+
+
+  ---------------------------------------------------------------------------------
+
+
+  Q24. What are the benefits of using Axios() over Fetch() for making http requests?
+
+  Fetch:
+  -The Fetch API provides a fetch() method defined on the window object.
+  -It also provides a JavaScript interface for accessing and manipulating parts of the HTTP pipeline (requests and
+  responses). The fetch method has one mandatory argument- the URL of the resource to be fetched. This method returns a
+  Promise that can be used to retrieve the response of the request.
+
+  Example:
+
+  fetch('path-to-the-resource-to-be-fetched')
+  .then((response) => {
+  // Code for handling the response
+  })
+  .catch((error) => {
+  // Error Handling
+  });
+  Axios:
+  Axios is a Javascript library used to make HTTP requests from node.
+  js or XMLHttpRequests from the browser and it
+  supports the Promise API that is native to JS ES6.
+  It can be used intercept HTTP requests and responses and enables client-side protection against XSRF. It also has the
+  ability to cancel requests.
+
+  Example:
+
+  axios.get('url')
+  .then((response) => {
+  // Code for handling the response
+  })
+  .catch((error) => {
+  // Error Handling
+  });
+
+
+  Axios()
+  Fetch()
+
+  -Axios has url in request object.
+  -Fetch has no url in request object.
+
+  -Axios is a stand-alone third party package that can be easily installed.
+  -Fetch is built into most modern browsers
+
+  Axios uses the data property.
+  Fetch uses the body property.
+
+  Axios has built-in XSRF protection.
+  Fetch does not.
+
+
+  Axios performs automatic transforms of JSON data.
+  Fetch is a two-step process when handling JSON data- first, to make the actual request; second, to call the .json()
+  method on the response.
+
+
+  Axios allows cancelling request and request timeout.
+  Fetch does not.
+
+
+  Axios data contains the object.
+  Fetch's body has to be stringified.
+
+  Axios request is ok when status is 200 and statusText is 'OK'.
+  Fetch request is ok when response object contains the ok property.
+
+
+  Axios has the ability to intercept HTTP requests.
+  Fetch, by default, doesn't provide a way to intercept requests.
+
+  Axios has built-in support for download progress.
+  Fetch does not support upload progress.
+
+  Axios has wide browser support.
+  Fetch only supports Chrome 42+, Firefox 39+, Edge 14+, and Safari 10.1+.
+  ---------------------------------------------------------------------------------
+
+  Q25. What is Lifting State Up in ReactJS?
+
+
+  If parent component needs state of child component then it can be passed to parent
+  component using the concept called 'lifting state up'.
+
+  The common approach to share state between two components is to move the state to common parent of the two components.
+  This approach is called as lifting state up in React.js. With the shared state, changes in state reflect in relevant
+  components simultaneously.
+
+  Example:
+
+  The App component containing PlayerContent and PlayerDetails component. PlayerContent shows the player name buttons.
+  PlayerDetails shows the details of the in one line.
+
+  The app component contains the state for both the component. The selected player is shown once we click on the one of
+  the player button.
+
+  App.js
+  ---------------------------------------------------------------------------------
+
+  6Q. What is the difference between React State vs Redux State?
+
+  React state is stored locally within a component. When it needs to be shared with other components,
+  it is passed down through props.
+
+  In practice, this means that the top-most component in your app needing access to a mutable value will hold that value
+  in its state. If it can be mutated by subcomponents, you must pass a callback to handle the change into subcomponents.
+
+  When using Redux, state is stored globally in the Redux store.
+  Any component that needs access to a value may subscribe to the store and gain access to that value.
+  Typically, this is done using container components.
+  This centralizes all data but makes it very easy for a component to get the state it needs, without surrounding
+  components knowing of its needs.
+
+  ------------------------------------------------------------------
+
+
+
+
+  What is prop drilling?
+  Prop Drilling is the process by which you pass data from one component of the React Component tree to another by going
+  through other components that do not need the data but only help in passing it around.
+
+
+  Q1. What is React.js?
+
+  -Reactjs is a JavaScript library created for building fast and interactive
+  user interfaces for web and mobile applications.
+  - React also create reusable UI components.
+
+  -React allows developers to create large web applications which can change data, without reloading
+  the page.
+  -with help of reactjs we can create SPA
+
+  -The main objective of ReactJS is to develop User Interfaces (UI)
+  that improves the speed of the apps.
+
+  -virtual DOM which improves the performance of the app.
+  -virtual DOM is faster than the regular DOM.
+
+  - We can use ReactJS on the client and server-side as well as with other frameworks.
+  - React was first created by Jordan Walke, a software engineer working for Facebook.
+
+
+
+
+
+  <!--
+  #alt
+  
+  
+  
+  -Reactjs is a JavaScript library created for building fast and interactive user interfaces for
+  specifically single page applications.
+  
+  - It’s used for handling view layer for web and mobile applications.
+  
+  -It is an open-source, component-based, front-end library
+  
+  -responsible only for the application view layer.
+  
+  -The main objective of ReactJS is to develop User Interfaces (UI)
+   that improves the speed of the apps.
+  
+   -virtual DOM which improves the performance of the app.
+  
+  -virtual DOM is faster than the regular DOM.
+  - We can use ReactJS on the client and server-side as well as with other frameworks.
+  -It uses component and data patterns that improve readability and helps to maintain larger apps.
+  
+  
+  
+  -The main purpose of React is to be fast, scalable, and simple.
+  It works only on user interfaces in application. This corresponds to view in the MVC template. It can be used with a combination of other JavaScript libraries or frameworks, such as Angular JS in MVC.
+  
+  
+   -->
+  ---------------------------------------------------------------------------------
+
+  ---------------------------------------------------------------------------------
+  Q3. What is ReactDOM?
+
+  -ReactDOM is a package that provides DOM specific methods
+  -that can be used at the top level of a web app
+  -to (enable an ) efficient way of managing DOM elements of the web page.
+
+
+  ReactDOM.render() Function
+
+  This function is used to render a single React Component or
+  several Components wrapped together in a Component or a div
+  element.
+  This function uses the efficient methods of React for updating the DOM by
+  being able to change only a subtree, efficient
+  diff methods etc.
+
+  -This function returns a reference to the component or null if a stateless component was rendered.
+
+
+
+  ---------------------------------------------------------------------------------
+
+  Q9. Why to use PureComponent? When to use PureComponent over Component?
+
+  Both functional-based and class-based components have the same downside: they always re-render when their parent
+  component re-renders even if the props do not change.
+
+  Also, class-based components always re-render when its state is updated (this.setState() is called) even if the new
+  state is equal to the old state. Moreover, when a parent component re-renders, all of its children are also
+  re-rendered,
+  and their children too, and so on.
+
+  That behaviour may mean a lot of wasted re-renderings. Indeed, if our component only depends on its props and state,
+  then it shouldn’t re-render if neither of them changed, no matter what happened to its parent component.
+
+  That is precisely what PureComponent does - it stops the vicious re-rendering cycle. PureComponent does not re-render
+  unless its props and state change.
+
+  When to use PureComponent
+
+  We want to avoid re-rendering cycles of component when its props and state are not changed, and
+  The state and props of component are immutable, and
+  We do not plan to implement own shouldComponentUpdate() lifecycle method.
+  On the other hand, we should not use PureComponent() as a base component if:
+
+  props or state are not immutable, or
+  Plan to implement own shouldComponentUpdate() lifecycle method.
+
+  ---------------------------------------------------------------------------------
